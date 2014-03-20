@@ -1,0 +1,10 @@
+- if current_user
+  %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
+    = image_tag current_user.gravatar_url(:size => 28)
+    = current_user.email
+    %b.caret
+    %ul.dropdown-menu
+      %li Logout
+- else
+  %a{"data-original-title" => "Showcase of Bootstrap sites & apps", href: "#", onclick: "", rel: "tooltip", target: "_blank", title: ""}
+    Login

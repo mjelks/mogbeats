@@ -1,0 +1,80 @@
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %a.brand{href: "../"} MogToBeats
+      #main-menu.nav-collapse.collapse
+        -#%ul#main-menu-left.nav
+        -#  %li
+        -#    %a{href: "http://news.bootswatch.com", onclick: "pageTracker._link(this.href); return false;"} News
+        -#  %li
+        -#    %a#swatch-link{href: "../#gallery"} Gallery
+        -#  %li.dropdown
+        -#    %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
+        -#      Preview
+        -#      %b.caret
+        -#    %ul#swatch-menu.dropdown-menu
+        -#      %li
+        -#        %a{href: "../default/"} Default
+        -#      %li.divider
+        -#      %li
+        -#        %a{href: "../amelia/"} Amelia
+        -#      %li
+        -#        %a{href: "../cerulean/"} Cerulean
+        -#      %li
+        -#        %a{href: "../cosmo/"} Cosmo
+        -#      %li
+        -#        %a{href: "../cyborg/"} Cyborg
+        -#      %li
+        -#        %a{href: "../flatly/"} Flatly
+        -#      %li
+        -#        %a{href: "../journal/"} Journal
+        -#      %li
+        -#        %a{href: "../readable/"} Readable
+        -#      %li
+        -#        %a{href: "../simplex/"} Simplex
+        -#      %li
+        -#        %a{href: "../slate/"} Slate
+        -#      %li
+        -#        %a{href: "../spacelab/"} Spacelab
+        -#      %li
+        -#        %a{href: "../spruce/"} Spruce
+        -#      %li
+        -#        %a{href: "../superhero/"} Superhero
+        -#      %li
+        -#        %a{href: "../united/"} United
+        -#  %li#preview-menu.dropdown
+        -#    %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
+        -#      Download
+        -#      %b.caret
+        -#    %ul.dropdown-menu
+        -#      %li
+        -#        %a{href: "bootstrap.min.css", target: "_blank"} bootstrap.min.css
+        -#      %li
+        -#        %a{href: "bootstrap.css", target: "_blank"} bootstrap.css
+        -#      %li.divider
+        -#      %li
+        -#        %a{href: "variables.less", target: "_blank"} variables.less
+        -#      %li
+        -#        %a{href: "bootswatch.less", target: "_blank"} bootswatch.less
+        %ul#main-menu-right.nav.pull-right
+          -#%li
+          -#  %a{"data-original-title" => "Showcase of Bootstrap sites & apps", href: "http://builtwithbootstrap.com/", onclick: "_gaq.push(['_trackEvent', 'click', 'outbound', 'builtwithbootstrap']);", rel: "tooltip", target: "_blank", title: ""}
+          -#    Built With Bootstrap
+          -#    %i.icon-share-alt
+          %li.dropdown
+            -#= render partial: 'partials/userstatus'
+            - if current_user
+              %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
+                = image_tag current_user.gravatar_url(:size => 28)
+                = current_user.email
+                %b.caret
+                %ul.dropdown-menu
+                  %li
+                    %a{target: "_blank"} Logout
+            - else
+              %a{"data-original-title" => "Showcase of Bootstrap sites & apps", href: "#", onclick: "", rel: "tooltip", target: "_blank", title: ""}
+                Login
