@@ -22,7 +22,15 @@ describe Album do
       #Album.stub(:find_or_create_by_mog_id_and_name).and_return(album)
       #Album.create_user_favorites(@favorites['values'], @user_id).should be_true
     end
-
-
   end
+
+  context "create_album" do
+    it "should create an album" do
+      fail
+    end
+    it "should throw an error if mog_id is invalid" do
+      pending
+    end
+  end
+
 end

@@ -80,8 +80,8 @@ module MogBeats
         else
           return 'fave_type not supported'
       end
-        puts "#{type}_faves:"
-        puts favorites.inspect
+        #puts "#{type}_faves:"
+        #puts favorites.inspect
         return favorites
     end
 

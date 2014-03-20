@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   has_many :playlists
 
   has_many :albums_users, :dependent => :destroy
-  has_many :albums, through: :albums_users, :class_name => "AlbumsUser", :foreign_key => :user_id, :source => :album
+  has_many :albums, through: :albums_users
 
   has_many :artists_users
   has_many :artists, :through => :artists_users
@@ -21,5 +21,8 @@ class User < ActiveRecord::Base
 
   include Gravtastic
   gravtastic
+
+
+  #scope :is_unit_compatible, where(:campaign_type => ["giveaway", "coupon", "interstitial"])
 
 end
