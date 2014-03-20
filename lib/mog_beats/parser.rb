@@ -35,13 +35,19 @@ module MogBeats
       Capybara.app_host = 'https://mog.com/'
       visit('/m#my_favorites')
       sleep(5)
-      # uncomment these 2 lines to make sure source code is valid and we're logged in
-      # otherwise leave commented out
-      #page = Nokogiri::HTML.parse(html)
-      #puts page.inspect
-      faves = ['artist','album','track']
-      faves.each do |fave_type|
-        collection.push(mog_parse_favorites(fave_type))
+      if !page || page.text.include?('The bad news is that we couldn\'t find that page.')
+        # TODO: properly throw and catch exception at this point
+        puts 'you need to login again, or we need to wait a little longer to process the page'
+        collection = false
+      else
+        # uncomment these 2 lines to make sure source code is valid and we're logged in
+        # otherwise leave commented out
+        #page = Nokogiri::HTML.parse(html)
+        #puts page.inspect
+        faves = ['artist','album','track']
+        faves.each do |fave_type|
+          collection.push(mog_parse_favorites(fave_type))
+        end
       end
       return collection
     end
@@ -91,13 +97,24 @@ module MogBeats
         return favorites
     end
 
+    def mog_playlists_collect
+      collection = []
+      Capybara.app_host = 'https://mog.com/'
+      visit('/m#my_playlists')
+      sleep(5)
+    end
+
     def parse_prefix(elem)
       return elem.gsub('/.+\/(\d+)/',$1)
     end
 
     def mog_logout
-      Capybara.app_host = 'https://mog.com/'
-      visit('/m/logout')
+      #Capybara.app_host = 'https://mog.com/'
+      #visit('/m#favorites')
+      #sleep(5)
+      #page.execute_script("document.getElementById('menu-holder').getElementsByClassName('menu-pop-down')[0].getElementsByTagName('ul')[0].style.display = 'block'")
+      #page.find(:xpath, "//div[@id='dropdown-menus']/div/div[1]/div/ul/li[3]/a",:visible => false).click
+      Capybara.reset_sessions!
     end
 
   end

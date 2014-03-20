@@ -5,36 +5,23 @@ class UserController < ApplicationController
     @user = current_user
     @user.update_attributes(params['user'])
 
-    # 1. logout first, to make sure other session not in place
-    # 2. login
-    # 3. get favorites
-    # 4. get playlists
+    ## This NEEEDS to be a RESQUE job.
+    ## need to throttle and only do one at a time SLOWLY!
 
-    #puts 'attempting to login!'
-    #page = test_parse_capybara
-    #page = mog_login(params['user']['mog_email'], params['mog_password'])
-    #logout_of_mog
-    #puts page.inspect
+    # 1. login
+    mog_login(params['user']['mog_email'], params['mog_password'])
 
-    puts 'hey!'
-    puts 'what is the result?'
-    #mog_login(params['user']['mog_email'], params['mog_password'])
-    results = mog_favorites_collect
+    # 2. get favorites
+    favorites = mog_favorites_collect
+    # 3. get playlists
 
-    puts 'post_result'
-    #puts results.inspect
-    results.each do |favorite|
-      case favorite['type']
-        when 'album'
-          Album.create_user_favorites(favorite['values'], current_user.id)
-        when 'artist'
-          Artist.create_user_favorites(favorite['values'], current_user.id)
-        when 'track'
-          Track.create_user_favorites(favorite['values'], current_user.id)
-      end
-    end
+    # 4. clear the session
+    mog_logout
 
+    @user.parse_favorites(favorites)
+    ### END RESQUE JOB ###
 
+    # need to have a status table for the user
     redirect_to :controller => 'welcome', :action => :index
   end
 
@@ -58,6 +45,9 @@ class UserController < ApplicationController
     @playlists = current_user.playlists
   end
 
+  def edit
+    @user = current_user
+  end
 
 
 end

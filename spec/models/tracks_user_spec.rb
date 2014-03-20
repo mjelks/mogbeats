@@ -5,7 +5,7 @@ describe TracksUser do
     before :each do
       @track = mock_model Track
       @user_id = 27
-      @tracks_user = TracksUser.new(:Track_id => @track.id, :user_id => @user_id)
+      @tracks_user = TracksUser.new(:track_id => @track.id, :user_id => @user_id)
     end
     it "should find_or_create entry" do
        TracksUser.stub(:find_or_create_by_track_id_and_user_id).and_return(@tracks_user)

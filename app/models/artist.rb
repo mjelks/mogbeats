@@ -6,6 +6,8 @@ class Artist < ActiveRecord::Base
 
   has_many :tracks
 
+  attr_accessible :name, :mog_id
+
   def self.create_user_favorites(artists, user_id)
     # first generate artists into the artist table if needed
     artists.each_with_index do |element, idx|

@@ -35,9 +35,8 @@ GEM
       fog (>= 1.8.0)
     autotest (4.4.6)
       ZenTest (>= 4.4.1)
-    autotest-fsevent (0.2.8)
+    autotest-fsevent (0.2.9)
       sys-uname
-    autotest-growl (0.2.16)
     awesome_print (1.1.0)
     bcrypt-ruby (3.1.1)
     builder (3.0.4)
@@ -240,11 +239,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  ZenTest
   asset_sync
   autotest
   autotest-fsevent
-  autotest-growl
   awesome_print
   capybara
   capybara-webkit

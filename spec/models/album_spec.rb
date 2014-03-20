@@ -9,28 +9,33 @@ describe Album do
   context "create_user_favorites" do
     before :each do
       @user_id = 2
-      @favorites = {"values"=>[{"mog_artist_id"=>"428573", "mog_album_id"=>"98837157", "album_name"=>"Epic", "artist_name"=>"Overland"},
+      @favorites = {"values"=>[{"mog_artist_id"=>"428573", "mog_album_id"=>"98837157", "album_name"=>"Epic", "artist_name"=>"Overland", "image_url"=>"//foo.baz/image.jpeg"},
                                {"mog_artist_id"=>"62360", "mog_album_id"=>"25494189", "album_name"=>"From the Moon to the Sun", "artist_name"=>"Kip Winger"}],
                     "type"=>"album"}
     end
 
     it "should add favorites for a user" do
-      #puts @favorites['values'].inspect
-      #album = mock_model Album
-      #AlbumsUser.stub(:create_sorted_entry).and_return true
-      #album.stub(:save).and_return true
-      #Album.stub(:find_or_create_by_mog_id_and_name).and_return(album)
-      #Album.create_user_favorites(@favorites['values'], @user_id).should be_true
+      album1 = @favorites['values'][0]
+      @album = Album.new(:name => album1['album_name'], :mog_id =>  MogBeats::Formatter.mog_id_cleanup(album1['mog_album_id']), :image_url => MogBeats::Formatter.mog_image_cleanup(album1['image_url']))
+      Album.stub(:create_album).and_return(@album)
+      AlbumsUser.stub(:create_sorted_entry).and_return true
+      Album.create_user_favorites(@favorites['values'], @user_id).should be_true
     end
   end
 
   context "create_album" do
     it "should create an album" do
-      fail
+      album_name = 'Fooz'
+      mog_id = '#album/94483783'
+      image_url = '//foo.baz/image.jpeg'
+      @album = Album.new(:name => album_name, :mog_id => MogBeats::Formatter.mog_id_cleanup(mog_id), :image_url => MogBeats::Formatter.mog_image_cleanup(image_url))
+      Album.stub(:find_or_create_by_mog_id_and_name).and_return(@album)
+      result = Album.create_album(mog_id, album_name, image_url)
+      result.should eq @album
+      result.mog_id.should == 94483783
+      result.image_url.should eq 'http://foo.baz/image.jpeg'
     end
-    it "should throw an error if mog_id is invalid" do
-      pending
-    end
+
   end
 
 end

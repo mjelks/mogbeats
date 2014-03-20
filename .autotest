@@ -1,4 +1,4 @@
-require "autotest/growl"
+#require "autotest/growl"
 
 # fast detection of file changes
 require 'autotest/fsevent'
@@ -13,4 +13,4 @@ Autotest.add_hook :initialize do |autotest|
   end
 end
 
-Autotest::Growl::one_notification_per_run = true
+#Autotest::Growl::one_notification_per_run = true

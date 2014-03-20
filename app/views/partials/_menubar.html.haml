@@ -77,9 +77,11 @@
                 %b.caret
                 %ul.dropdown-menu
                   %li
+                    %a{href: url_for(edit_user_url(current_user.id))} My Account
+                  %li
                     %a{href: url_for(:controller => 'user', :action => 'mog_credentials', :user_id => current_user.id)} Mog Credentials
                   %li
-                    %a{target: "_blank"} Logout
+                    = link_to('Logout', destroy_user_session_path, :method => 'delete')
             - else
               %a{"data-original-title" => "Showcase of Bootstrap sites & apps", href: "#", onclick: "", rel: "tooltip", target: "_blank", title: ""}
                 Login

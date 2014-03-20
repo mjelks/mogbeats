@@ -9,7 +9,7 @@ class Track < ActiveRecord::Base
 
   has_and_belongs_to_many :playlists
 
-  attr_accessible :track_mog_id, :track_mog_id, :artist_mog_id, :name, :image_url, :album_name, :artist_name
+  attr_accessible :name, :track_mog_id, :album_id, :artist_id
 
   def self.create_user_favorites(tracks, user_id)
     # first generate tracks into the track table if needed
@@ -21,16 +21,11 @@ class Track < ActiveRecord::Base
   end
 
   def self.create_track(album_mog_id, artist_mog_id, track_mog_id, track_name, image_url, album_name, artist_name)
-    track = self.find_or_create_by_album_mog_id_and_artist_mog_id_and_track_mog_id(
-        MogBeats::Formatter.mog_id_cleanup(album_mog_id).to_i,
-        MogBeats::Formatter.mog_id_cleanup(artist_mog_id).to_i,
-        MogBeats::Formatter.mog_id_cleanup(track_mog_id).to_i,
-    )
+    album = Album.create_album(album_mog_id,album_name,image_url)
+    artist = Artist.create_artist(artist_mog_id, artist_name)
+    track = self.find_or_create_by_track_mog_id_and_album_id_and_artist_id(track_mog_id, album.id, artist.id)
     track.update_attributes(
-        :name => track_name,
-        :image_url => MogBeats::Formatter.mog_image_cleanup(image_url),
-        :album_name => album_name,
-        :artist_name => artist_name
+        :name => track_name
     )
 
     return track

@@ -30,9 +30,11 @@
     = render partial: 'partials/menubar'
     .container{:style => 'margin-top: 80px'}
       = yield
+      = render :partial => "layouts/page_footer"
     /
       Javascripts
       \==================================================
     / Placed at the end of the document so the pages load faster
     = javascript_include_tag "slate"
     = yield(:page_javascript) if content_for?(:page_javascript)
+

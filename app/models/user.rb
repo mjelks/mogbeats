@@ -22,6 +22,25 @@ class User < ActiveRecord::Base
   include Gravtastic
   gravtastic
 
+  def parse_favorites(favorites)
+    favorites.each do |favorite|
+      case favorite['type']
+        when 'album'
+          Album.create_user_favorites(favorite['values'], self.id)
+        when 'artist'
+          Artist.create_user_favorites(favorite['values'], self.id)
+        when 'track'
+          Track.create_user_favorites(favorite['values'], self.id)
+      end
+    end
+  end
+
+  def parse_playlists(playlists)
+    playlists.each do |playlist|
+      playlist = Playlist.find_or_create_by_name_and_user_id(playlist['name'], self.id)
+      playlist.update_attributes(:link => playlist['playlist_url'])
+    end
+  end
 
 
 end
