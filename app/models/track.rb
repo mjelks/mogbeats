@@ -4,8 +4,8 @@ class Track < ActiveRecord::Base
   has_many :tracks_users
   has_many :users, :through => :tracks_users
 
-  belongs_to :albums
-  belongs_to :artists
+  belongs_to :album
+  belongs_to :artist
 
   has_and_belongs_to_many :playlists
 
@@ -30,4 +30,17 @@ class Track < ActiveRecord::Base
 
     return track
   end
+
+  def artist_name
+    return self.artist.name
+  end
+
+  def album_name
+    return self.album.name
+  end
+
+  def image_url
+    return self.album.image_url
+  end
+
 end

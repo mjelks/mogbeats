@@ -21,4 +21,8 @@ class Artist < ActiveRecord::Base
     return self.find_or_create_by_mog_id_and_name(MogBeats::Formatter.mog_id_cleanup(mog_id).to_i, artist_name)
   end
 
+  def artist_name
+    @name = self.name
+  end
+
 end
