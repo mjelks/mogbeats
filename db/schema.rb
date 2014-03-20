@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140320084122) do
+ActiveRecord::Schema.define(:version => 20140320172705) do
 
   create_table "albums", :force => true do |t|
     t.integer  "mog_id"
@@ -67,15 +67,13 @@ ActiveRecord::Schema.define(:version => 20140320084122) do
   create_table "tracks", :force => true do |t|
     t.string   "name"
     t.integer  "track_mog_id"
-    t.integer  "artist_mog_id"
-    t.integer  "album_mog_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-    t.string   "image_url"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "album_id"
+    t.integer  "artist_id"
   end
 
-  add_index "tracks", ["album_mog_id"], :name => "index_tracks_on_album_mog_id", :unique => true
-  add_index "tracks", ["artist_mog_id"], :name => "index_tracks_on_artist_mog_id", :unique => true
+  add_index "tracks", ["track_mog_id", "album_id", "artist_id"], :name => "index_tracks_on_track_mog_id_and_album_id_and_artist_id", :unique => true
 
   create_table "tracks_users", :id => false, :force => true do |t|
     t.integer "track_id"

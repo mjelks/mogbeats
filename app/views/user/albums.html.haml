@@ -5,11 +5,15 @@
     %table.table.table-bordered.table-striped.table-hover
       %tr
         %th #
+        %th Album Image
         %th Album Name
       - @albums.each_with_index do |album, idx|
         %tr
           %td
-            = idx
+            = idx+1
           %td
-            = album.name
+            %img{:src => "#{album['image_url']}" }
+          %td
+            %h4
+              = album.name
 

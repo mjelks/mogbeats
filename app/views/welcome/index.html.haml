@@ -44,20 +44,34 @@
               = @playlists_count
         .text-center
           %a.btn.btn-success.btn-large{:href => url_for(:controller => 'user', :action => 'playlists', :user_id => current_user.id)} View Playlists
+  - if @total_count < 1
+    %hr
+    .row
+      .span12
+        .text-center
+          %a.btn.btn-primary.btn-large{:href => url_for(:controller => 'user', :action => 'mog_credentials', :user_id => current_user.id)} Generate Mog Data
+    .row
+      .span2
+      .span8
+        .text-center
+          %small
+            Go to a separate page where you will enter your mog username and password.
+            %br
+            Then we will attempt to gather the necessary data.
+      .span2
 
   %hr
-  .row
-    .span12
-      .text-center
-        %a.btn.btn-primary.btn-large{:href => url_for(:controller => 'user', :action => 'mog_credentials', :user_id => current_user.id)} Generate Mog Data
-  .row
-    .span2
-    .span8
-      .text-center
-        %small
-          Go to a separate page where you will enter your mog username and password.
-          %br
-          Then we will attempt to gather the necessary data.
-    .span2
+    .row
+      .span12
+        .well
+          %h1 Phase 1 Deployment
+          Hi. I created this quick and dirty site to export your MOG data to a web based format. I hope to have the following goals completed sometime in the near future:
+          %ol
+            %li CSV Export of All Favorites and Playlist Data
+            %li Beats API Integration. Using the Beats API, import the Mog information back into that system.
+          %p
+            I realize we are running out of time so I wanted to get this up as soon as possible.
+          %p
+            \-- Michael
 
 

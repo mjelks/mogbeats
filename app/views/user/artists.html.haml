@@ -5,11 +5,11 @@
     %table.table.table-bordered.table-striped.table-hover
       %tr
         %th #
-        %th Album Name
+        %th Artist Name
       - @artists.each_with_index do |artist, idx|
         %tr
           %td
-            = idx
+            = idx+1
           %td
-            = album.name
+            = artist.name
 

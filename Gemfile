@@ -60,6 +60,10 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'autotest'
+  gem 'ZenTest'
+  gem 'autotest-growl'
+  gem 'autotest-fsevent'
   gem 'simplecov', "~> 0.8.2"
   gem 'simplecov-rcov'
   gem 'spork-rails'

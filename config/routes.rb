@@ -48,11 +48,11 @@ MogBeats::Application.routes.draw do
   #     resources :products
   #   end
 
-  resources :welcome do
-    get 'index'
-    get 'album'
-    post 'get_mog'
-  end
+  #resources :welcome do
+  #  get 'index'
+  #end
+
+  match :welcome, :controller => :welcome, :action => :index
 
   resources :user do
     match "mog_credentials", :controller => :user, :action => 'mog_credentials'

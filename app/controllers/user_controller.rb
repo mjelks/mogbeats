@@ -20,8 +20,19 @@ class UserController < ApplicationController
     puts 'what is the result?'
     #mog_login(params['user']['mog_email'], params['mog_password'])
     results = mog_favorites_collect
+
     puts 'post_result'
-    puts results.inspect
+    #puts results.inspect
+    results.each do |favorite|
+      case favorite['type']
+        when 'album'
+          Album.create_user_favorites(favorite['values'], current_user.id)
+        when 'artist'
+          Artist.create_user_favorites(favorite['values'], current_user.id)
+        when 'track'
+          Track.create_user_favorites(favorite['values'], current_user.id)
+      end
+    end
 
 
     redirect_to :controller => 'welcome', :action => :index

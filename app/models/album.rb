@@ -1,8 +1,10 @@
 class Album < ActiveRecord::Base
-  include ApplicationHelper
+  include MogBeats::Formatter
 
   has_many :albums_users
   has_many :users, :through => :albums_users
+
+  has_many :tracks
 
   # attr_accessible :title, :body
   attr_accessible :mog_id, :name, :image_url
@@ -17,10 +19,8 @@ class Album < ActiveRecord::Base
   end
 
   def self.create_album(mog_id, album_name, image_url="")
-    album = self.find_or_create_by_mog_id_and_name(mog_id_cleanup(mog_id).to_i, album_name)
-    if image_url?
-      album.update_attributes(:image_url => image_url)
-    end
+    album = self.find_or_create_by_mog_id_and_name(MogBeats::Formatter.mog_id_cleanup(mog_id).to_i, album_name)
+    album.update_attributes(:image_url => MogBeats::Formatter.mog_image_cleanup(image_url)) unless image_url.blank?
     return album
   end
 

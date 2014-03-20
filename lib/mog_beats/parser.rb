@@ -57,7 +57,7 @@ module MogBeats
           html.xpath("//li[@class='clrfx album ui-draggable']").each_with_index do |elem, idx|
             # get the text name (3rd element of <a> tags)
             album = html.xpath("//li[@class='clrfx album ui-draggable'][#{idx+1}]//a")[2]
-            image = html.xpath("//li[@class='clrfx album ui-draggable'][2]//img")[0]
+            image = html.xpath("//li[@class='clrfx album ui-draggable'][#{idx+1}]//img")[0]
             artist = html.xpath("//li[@class='clrfx album ui-draggable'][#{idx+1}]//a")[3]
             favorites['values'].push({'mog_artist_id' => elem['artist_id'], 'mog_album_id' => elem['album_id'], 'album_name' => album['title'], 'artist_name' => artist['title'], 'image_url' => image['src']})
           end

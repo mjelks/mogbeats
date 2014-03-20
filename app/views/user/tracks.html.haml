@@ -5,11 +5,23 @@
     %table.table.table-bordered.table-striped.table-hover
       %tr
         %th #
+        %th Album Image
         %th Track Name
+        %th Artist Name
+        %th Album Name
       - @tracks.each_with_index do |track, idx|
         %tr
           %td
-            = idx
+            = idx+1
           %td
-            = track.name
+            %img{:src => "#{track['image_url']}", :width => 64, :height => 64 }
+          %td
+            %h4
+              = track.name
+          %td
+            %h6
+              = track.artist_name
+          %td
+            %h6
+              = track.album_name
 

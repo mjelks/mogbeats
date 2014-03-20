@@ -1,8 +1,10 @@
 class Artist < ActiveRecord::Base
-  include ApplicationHelper
+  include MogBeats::Formatter
 
   has_many :artists_users
   has_many :users, :through => :artists_users
+
+  has_many :tracks
 
   def self.create_user_favorites(artists, user_id)
     # first generate artists into the artist table if needed
@@ -14,7 +16,7 @@ class Artist < ActiveRecord::Base
   end
 
   def self.create_artist(mog_id, artist_name)
-    return self.find_or_create_by_mog_id_and_name(mog_id_cleanup(mog_id).to_i, artist_name)
+    return self.find_or_create_by_mog_id_and_name(MogBeats::Formatter.mog_id_cleanup(mog_id).to_i, artist_name)
   end
 
 end
