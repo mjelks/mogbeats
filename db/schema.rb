@@ -11,13 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140316212443) do
+ActiveRecord::Schema.define(:version => 20140320084122) do
 
   create_table "albums", :force => true do |t|
     t.integer  "mog_id"
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "image_url"
   end
 
   add_index "albums", ["mog_id"], :name => "index_albums_on_mog_id", :unique => true
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20140316212443) do
     t.integer  "album_mog_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.string   "image_url"
   end
 
   add_index "tracks", ["album_mog_id"], :name => "index_tracks_on_album_mog_id", :unique => true

@@ -1,0 +1,15 @@
+%h1 Track Faves
+%hr
+.row
+  .span12
+    %table.table.table-bordered.table-striped.table-hover
+      %tr
+        %th #
+        %th Track Name
+      - @tracks.each_with_index do |track, idx|
+        %tr
+          %td
+            = idx
+          %td
+            = track.name
+

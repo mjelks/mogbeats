@@ -23,6 +23,5 @@ class User < ActiveRecord::Base
   gravtastic
 
 
-  #scope :is_unit_compatible, where(:campaign_type => ["giveaway", "coupon", "interstitial"])
 
 end

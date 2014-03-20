@@ -31,15 +31,19 @@ module MogBeats
     end
 
     def mog_favorites_collect
+      collection = []
       Capybara.app_host = 'https://mog.com/'
       visit('/m#my_favorites')
       sleep(5)
+      # uncomment these 2 lines to make sure source code is valid and we're logged in
+      # otherwise leave commented out
       #page = Nokogiri::HTML.parse(html)
       #puts page.inspect
       faves = ['artist','album','track']
       faves.each do |fave_type|
-        mog_parse_favorites(fave_type)
+        collection.push(mog_parse_favorites(fave_type))
       end
+      return collection
     end
 
     # return as hash with elements setup for each favorite type
@@ -53,9 +57,9 @@ module MogBeats
           html.xpath("//li[@class='clrfx album ui-draggable']").each_with_index do |elem, idx|
             # get the text name (3rd element of <a> tags)
             album = html.xpath("//li[@class='clrfx album ui-draggable'][#{idx+1}]//a")[2]
-            album['title']
+            image = html.xpath("//li[@class='clrfx album ui-draggable'][2]//img")[0]
             artist = html.xpath("//li[@class='clrfx album ui-draggable'][#{idx+1}]//a")[3]
-            favorites['values'].push({'mog_artist_id' => elem['artist_id'], 'mog_album_id' => elem['album_id'], 'album_name' => album['title'], 'artist_name' => artist['title']})
+            favorites['values'].push({'mog_artist_id' => elem['artist_id'], 'mog_album_id' => elem['album_id'], 'album_name' => album['title'], 'artist_name' => artist['title'], 'image_url' => image['src']})
           end
 
         when 'artist'
@@ -72,10 +76,12 @@ module MogBeats
           puts 'track time!'
           favorites['type'] = 'track'
           html.xpath("//li[@class='track clrfx ui-draggable custom_context']").each_with_index do |elem, idx|
-            track = html.xpath("//li[@class='track clrfx ui-draggable custom_context']/span")[idx]
-            artist = html.xpath("//li[@class='track clrfx ui-draggable custom_context']//a[1]")[idx]
-            album = html.xpath("//li[@class='track clrfx ui-draggable custom_context']//a[2]")[idx]
-            favorites['values'].push({'mog_artist_id' => artist['href'], 'mog_artist_name' => artist['title'], 'mog_album_id' => album['href'], 'mog_album_title' => album['title'], 'mog_track_id' => '', 'track_name' => track['title']})
+            track = html.xpath("//li[@class='track clrfx ui-draggable custom_context']")[idx]
+            #track = html.xpath("//li[@class='track clrfx ui-draggable custom_context']/span")[idx]
+            #artist = html.xpath("//li[@class='track clrfx ui-draggable custom_context']//a[1]")[idx]
+            #album = html.xpath("//li[@class='track clrfx ui-draggable custom_context']//a[2]")[idx]
+            #favorites['values'].push({'mog_artist_id' => artist['href'], 'mog_artist_name' => artist['title'], 'mog_album_id' => album['href'], 'mog_album_title' => album['title'], 'mog_track_id' => '', 'track_name' => track_meta['title']})
+            favorites['values'].push({'mog_artist_id' => track['artist_id'], 'mog_artist_name' => track['artist_name'], 'mog_album_id' => track['album_id'], 'mog_album_title' => track['album_name'], 'mog_track_id' => track['track_id'], 'track_name' => track['track_name'], 'image_url' => track['album_image']})
           end
         else
           return 'fave_type not supported'

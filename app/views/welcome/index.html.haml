@@ -1,54 +1,63 @@
 %header#overview.jumbotron.subhead
   .row
     .span12
-      %h1 Welcome
-      %p.lead Please enter your Mog and/or Beats Information
-  = form_for(@user, :html => {:class => 'form-horizontal' }) do |f|
-    %fieldset
-      .row
-        .span6
-          .bsa.well
-            %h3 Mog Credentials
-            .control-group
-              %label.control-label Mog Email Address
-              -#= f.label :name, :class => 'control-label'
-              .controls
-                = f.text_field :mog_email
-            .control-group
-              %label.control-label Mog Password
-              .controls
-                = password_field_tag('mog_password')
-                %small note: this password will be sent in the clear, but it is not stored on this server
-        .span6
-          .bsa.well
-            %h3 Beats Credentials
-            .control-group
-              %label.control-label Beats Email Address
-              .controls
-                = f.text_field :beats_email
-            .control-group
-              %label.control-label Beats Password
-              .controls
-                = password_field_tag('beats_password')
-                %small note: this password will be sent in the clear, but it is not stored on this server
-      .row
-        .span12.text-center
-          = f.submit(:value => 'Submit Form', :class => 'btn btn-primary btn-large')
-  -#.subnav
-  -#  %ul.nav.nav-pills
-  -#    %li
-  -#      %a{href: "#typography"} Typography
-  -#    %li
-  -#      %a{href: "#navbar"} Navbar
-  -#    %li
-  -#      %a{href: "#buttons"} Buttons
-  -#    %li
-  -#      %a{href: "#forms"} Forms
-  -#    %li
-  -#      %a{href: "#tables"} Tables
-  -#    %li
-  -#      %a{href: "#miscellaneous"} Miscellaneous
+      %h1 Mog Summary Data Counts
+  %hr
+  .row
+    - if @total_count < 1
+      .span12
+        .well
+          %h3{:style => 'margin-top: -10px'} It appears you have no Favorites or Playlists scanned in yet.
+          Try generating the data now by visiting the
+          %a{:href => url_for(:controller => 'user', :action => 'mog_credentials', :user_id => current_user.id)} Generate Mog Data
+          area of the site.
+    - else
+      .span3
+        %h3.text-center Album Faves
+        .alert.alert-info
+          .text-center
+            %strong
+              = @albums_count
+        .text-center
+          %a.btn.btn-success.btn-large{:href => url_for(:controller => 'user', :action => 'albums', :user_id => current_user.id)} View Album Faves
+      .span3
+        %h3.text-center Artist Faves
+        .alert.alert-info
+          .text-center
+            %strong
+              = @artists_count
+        .text-center
+          %a.btn.btn-success.btn-large{:href => url_for(:controller => 'user', :action => 'artists', :user_id => current_user.id)} View Artist Faves
+      .span3
+        %h3.text-center Track Faves
+        .alert.alert-info
+          .text-center
+            %strong
+              = @tracks_count
+        .text-center
+          %a.btn.btn-success.btn-large{:href => url_for(:controller => 'user', :action => 'tracks', :user_id => current_user.id)} View Track Faves
+      .span3
+        %h3.text-center Playlists
+        .alert.alert-info
+          .text-center
+            %strong
+              = @playlists_count
+        .text-center
+          %a.btn.btn-success.btn-large{:href => url_for(:controller => 'user', :action => 'playlists', :user_id => current_user.id)} View Playlists
 
--#%h1 Welcome
--#
--#=@foo
+  %hr
+  .row
+    .span12
+      .text-center
+        %a.btn.btn-primary.btn-large{:href => url_for(:controller => 'user', :action => 'mog_credentials', :user_id => current_user.id)} Generate Mog Data
+  .row
+    .span2
+    .span8
+      .text-center
+        %small
+          Go to a separate page where you will enter your mog username and password.
+          %br
+          Then we will attempt to gather the necessary data.
+    .span2
+
+

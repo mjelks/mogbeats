@@ -1,0 +1,15 @@
+%h1 My Playlists
+%hr
+.row
+  .span12
+    %table.table.table-bordered.table-striped.table-hover
+      %tr
+        %th #
+        %th Playlist Name
+      - @playlists.each_with_index do |playlist, idx|
+        %tr
+          %td
+            = idx
+          %td
+            = playlist.name
+

@@ -1,0 +1,15 @@
+%h1 Artist Faves
+%hr
+.row
+  .span12
+    %table.table.table-bordered.table-striped.table-hover
+      %tr
+        %th #
+        %th Album Name
+      - @artists.each_with_index do |artist, idx|
+        %tr
+          %td
+            = idx
+          %td
+            = album.name
+

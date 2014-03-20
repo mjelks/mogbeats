@@ -50,10 +50,17 @@ MogBeats::Application.routes.draw do
 
   resources :welcome do
     get 'index'
+    get 'album'
     post 'get_mog'
   end
 
-  resources :user
+  resources :user do
+    match "mog_credentials", :controller => :user, :action => 'mog_credentials'
+    match "albums", :controller => :user, :action => 'albums'
+    match "artists", :controller => :user, :action => 'artists'
+    match "tracks", :controller => :user, :action => 'tracks'
+    match "playlists", :controller => :user, :action => 'playlists'
+  end
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index_orig.html.

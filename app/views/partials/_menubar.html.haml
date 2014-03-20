@@ -5,11 +5,13 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      %a.brand{href: "../"} MogToBeats
+      %a.brand{href: url_for(:controller => 'welcome', :action => 'index')} MogToBeats
       #main-menu.nav-collapse.collapse
-        -#%ul#main-menu-left.nav
-        -#  %li
-        -#    %a{href: "http://news.bootswatch.com", onclick: "pageTracker._link(this.href); return false;"} News
+        %ul#main-menu-left.nav
+          %li
+            -#%i.icon-home
+            %a{href: url_for(:controller => 'welcome', :action => 'index')} Home
+
         -#  %li
         -#    %a#swatch-link{href: "../#gallery"} Gallery
         -#  %li.dropdown
@@ -69,10 +71,13 @@
             -#= render partial: 'partials/userstatus'
             - if current_user
               %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
-                = image_tag current_user.gravatar_url(:size => 28)
+                %span{:style => 'float:left;margin:-5px 5px 0 0'}
+                  = image_tag current_user.gravatar_url(:size => 32)
                 = current_user.email
                 %b.caret
                 %ul.dropdown-menu
+                  %li
+                    %a{href: url_for(:controller => 'user', :action => 'mog_credentials', :user_id => current_user.id)} Mog Credentials
                   %li
                     %a{target: "_blank"} Logout
             - else
