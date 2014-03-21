@@ -4,6 +4,9 @@ class Track < ActiveRecord::Base
   has_many :tracks_users
   has_many :users, :through => :tracks_users
 
+  has_many :playlists_tracks
+  has_many :playlists, :through => :playlists_tracks
+
   belongs_to :album
   belongs_to :artist
 

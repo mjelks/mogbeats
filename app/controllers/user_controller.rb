@@ -9,16 +9,31 @@ class UserController < ApplicationController
     ## need to throttle and only do one at a time SLOWLY!
 
     # 1. login
-    mog_login(params['user']['mog_email'], params['mog_password'])
+    #mog_login(params['user']['mog_email'], params['mog_password'])
 
     # 2. get favorites
-    favorites = mog_favorites_collect
+    #favorites = mog_favorites_collect
+    #@user.parse_favorites(favorites)
+
     # 3. get playlists
+    playlists = mog_playlists_collect
+
+    # we can use the playlist data and update mog_user info
+    @user.update_mog_user_data(playlists[0])
+
+    # loop through the playlists,
+    # first create user_playlist
+    # then collect and create tracks assoc. with playlist
+    playlists.each do |playlist|
+      @user.parse_playlist(playlist)
+      tracks = mog_playlist_tracks_collect(playlist['playlist_id'])
+      @user.parse_playlist_tracks(playlist['playlist_id'], tracks)
+    end
 
     # 4. clear the session
-    mog_logout
+    #mog_logout
 
-    @user.parse_favorites(favorites)
+
     ### END RESQUE JOB ###
 
     # need to have a status table for the user

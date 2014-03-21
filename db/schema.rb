@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140320172705) do
+ActiveRecord::Schema.define(:version => 20140321000532) do
 
   create_table "albums", :force => true do |t|
     t.integer  "mog_id"
@@ -51,9 +51,13 @@ ActiveRecord::Schema.define(:version => 20140320172705) do
   create_table "playlists", :force => true do |t|
     t.integer  "user_id"
     t.string   "name"
-    t.string   "link"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "mog_id"
+    t.string   "image_url"
+    t.boolean  "is_public"
+    t.integer  "plays"
+    t.string   "screen_name"
   end
 
   create_table "playlists_tracks", :id => false, :force => true do |t|
@@ -100,6 +104,8 @@ ActiveRecord::Schema.define(:version => 20140320172705) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.string   "mog_screen_name"
+    t.integer  "mog_user_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

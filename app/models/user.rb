@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :mog_email, :beats_email
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :mog_email, :beats_email, :mog_screen_name, :mog_user_id
   # attr_accessible :title, :body
   has_many :playlists
 
@@ -35,12 +35,21 @@ class User < ActiveRecord::Base
     end
   end
 
-  def parse_playlists(playlists)
-    playlists.each do |playlist|
-      playlist = Playlist.find_or_create_by_name_and_user_id(playlist['name'], self.id)
-      playlist.update_attributes(:link => playlist['playlist_url'])
-    end
+  def update_mog_user_data(data)
+    self.update_attributes(:mog_screen_name => data['screen_name'], :mog_user_id => data['user_id'])
   end
 
+  def parse_playlist(playlist)
+    playlist = Playlist.find_or_create_by_mog_id_and_user_id(playlist['playlist_id'], self.id)
+    playlist.update_attributes(:name => playlist['name'], :image_url => playlist['image_url'], :is_public => playlist['is_public'], :plays => playlist['plays'])
+  end
+
+  def parse_playlist_tracks(playlist_mog_id, tracks)
+    playlist = Playlist.find_by_mog_id_and_user_id(playlist_mog_id, self.id)
+    tracks.each_with_index do |element,idx|
+      track = Track.create_track(element['mog_album_id'], element['mog_artist_id'], element['mog_track_id'], element['track_name'], element['image_url'], element['mog_album_title'], element['mog_artist_name'])
+      PlaylistsTrack.create_sorted_entry(playlist.id, track.id, idx)
+    end
+  end
 
 end

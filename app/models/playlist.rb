@@ -1,5 +1,9 @@
 class Playlist < ActiveRecord::Base
-  # attr_accessible :title, :body
   belongs_to :user
-  has_and_belongs_to_many :tracks
+
+  has_many :playlists_tracks
+  has_many :tracks, :through => :playlists_tracks
+
+  attr_accessible :mog_id, :user_id, :name, :image_url, :is_public, :plays
+
 end
