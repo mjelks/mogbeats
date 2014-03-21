@@ -6,14 +6,16 @@ class UserController < ApplicationController
     @user.update_attributes(params['user'])
 
     ## This NEEEDS to be a RESQUE job.
+    ## need to add a job_start,job_finish time to user
+    ## only allow user to make 3 requests per day
     ## need to throttle and only do one at a time SLOWLY!
 
     # 1. login
-    #mog_login(params['user']['mog_email'], params['mog_password'])
+    mog_login(params['user']['mog_email'], params['mog_password'])
 
     # 2. get favorites
-    #favorites = mog_favorites_collect
-    #@user.parse_favorites(favorites)
+    favorites = mog_favorites_collect
+    @user.parse_favorites(favorites)
 
     # 3. get playlists
     playlists = mog_playlists_collect
@@ -31,9 +33,7 @@ class UserController < ApplicationController
     end
 
     # 4. clear the session
-    #mog_logout
-
-
+    mog_logout
     ### END RESQUE JOB ###
 
     # need to have a status table for the user
