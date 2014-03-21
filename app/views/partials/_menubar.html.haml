@@ -8,9 +8,20 @@
       %a.brand{href: "/welcome#index"} MogToBeats
       #main-menu.nav-collapse.collapse
         %ul#main-menu-left.nav
-          %li
-            -#%i.icon-home
-            %a{href: "/welcome#index"} Home
+          - if current_user
+            %li.dropdown
+              %a.dropdown-toggle{"data-toggle" => "dropdown", :href => '#'} Mog Data Summary
+              %ul.dropdown-menu
+                %li
+                  %a{:href => "/welcome#index"} Dashboard
+                %li
+                  = link_to "Album Faves", {:controller => :user, :user_id => current_user.id, :action => 'albums' }
+                %li
+                  = link_to "Artist Faves", {:controller => :user, :user_id => current_user.id, :action => 'artists' }
+                %li
+                  = link_to "Track Faves", {:controller => :user, :user_id => current_user.id, :action => 'tracks' }
+                %li
+                  = link_to "Playlists", {:controller => :user, :user_id => current_user.id, :action => 'playlists' }
           %li
             %a{href: "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B3VXX94SN4WGA", :target => 'blank'} Donate
         -#  %li

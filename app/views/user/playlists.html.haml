@@ -17,6 +17,9 @@
             %td
               %h4
                 = link_to "#{playlist.name}", {:controller => :user, :playlist_id => playlist.id, :action => 'playlists_tracks' }
+              %small
+                %span.label.label-info
+                  = link_to 'view tracks', {:controller => :user, :playlist_id => playlist.id, :action => 'playlists_tracks' }
                 -#%a{:href => user_playlists_path(:user_id => current_user.id, :playlist_id => playlist.id)}
                 -#  = playlist.name
 
