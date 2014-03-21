@@ -60,6 +60,11 @@ class UserController < ApplicationController
     @playlists = current_user.playlists
   end
 
+  def playlists_tracks
+    @playlist = Playlist.find(params['playlist_id'])
+    @tracks = @playlist.tracks
+  end
+
   def edit
     @user = current_user
   end

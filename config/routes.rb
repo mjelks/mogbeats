@@ -59,7 +59,8 @@ MogBeats::Application.routes.draw do
     match "albums", :controller => :user, :action => 'albums'
     match "artists", :controller => :user, :action => 'artists'
     match "tracks", :controller => :user, :action => 'tracks'
-    match "playlists", :controller => :user, :action => 'playlists'
+    get "playlists", :controller => :user, :action => 'playlists'
+    get "playlists/:playlist_id", :controller => :user, :action => 'playlists_tracks'
   end
 
   # You can have the root of your site routed with "root"

@@ -5,11 +5,18 @@
     %table.table.table-bordered.table-striped.table-hover
       %tr
         %th #
+        %th Album Image
         %th Playlist Name
-      - @playlists.each_with_index do |playlist, idx|
-        %tr
-          %td
-            = idx
-          %td
-            = playlist.name
+        - @playlists.each_with_index do |playlist, idx|
+          %tr
+            %td
+              = idx+1
+            %td
+              %a{:href => '#'}
+                %img{:src => "#{playlist.image_url}", :width => 64, :height => 64 }
+            %td
+              %h4
+                = link_to "#{playlist.name}", {:controller => :user, :playlist_id => playlist.id, :action => 'playlists_tracks' }
+                -#%a{:href => user_playlists_path(:user_id => current_user.id, :playlist_id => playlist.id)}
+                -#  = playlist.name
 

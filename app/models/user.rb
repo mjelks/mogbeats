@@ -8,12 +8,12 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :mog_email, :beats_email, :mog_screen_name, :mog_user_id
   # attr_accessible :title, :body
-  has_many :playlists
+  has_many :playlists, :dependent => :destroy
 
   has_many :albums_users, :dependent => :destroy
   has_many :albums, through: :albums_users
 
-  has_many :artists_users
+  has_many :artists_users, :dependent => :destroy
   has_many :artists, :through => :artists_users
 
   has_many :tracks_users, :dependent => :destroy
@@ -40,12 +40,20 @@ class User < ActiveRecord::Base
   end
 
   def parse_playlist(playlist)
-    playlist = Playlist.find_or_create_by_mog_id_and_user_id(playlist['playlist_id'], self.id)
-    playlist.update_attributes(:name => playlist['name'], :image_url => playlist['image_url'], :is_public => playlist['is_public'], :plays => playlist['plays'])
+    Playlist.where(:name => playlist['name'],
+                   :mog_id => playlist['playlist_id'],
+                   :user_id => self.id,
+                   :image_url => playlist['image_url'],
+                   :is_public => playlist['is_public'],
+                   :plays => playlist['plays']).first_or_create()
   end
 
   def parse_playlist_tracks(playlist_mog_id, tracks)
     playlist = Playlist.find_by_mog_id_and_user_id(playlist_mog_id, self.id)
+    puts 'playlist found?'
+    puts playlist.inspect
+    puts 'track stuff'
+    puts tracks.inspect
     tracks.each_with_index do |element,idx|
       track = Track.create_track(element['mog_album_id'], element['mog_artist_id'], element['mog_track_id'], element['track_name'], element['image_url'], element['mog_album_title'], element['mog_artist_name'])
       PlaylistsTrack.create_sorted_entry(playlist.id, track.id, idx)
