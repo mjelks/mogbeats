@@ -1,3 +1,13 @@
+GIT
+  remote: git://github.com/resque/resque.git
+  revision: 7dd2363a7ef3aef32990bc367cc913e5b544c33f
+  specs:
+    resque (2.0.0.pre.1)
+      json
+      mono_logger (~> 1.0)
+      redis-namespace (>= 1.3.0)
+      thor (~> 0.17)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -30,9 +40,6 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     arel (3.0.3)
-    asset_sync (1.0.0)
-      activemodel
-      fog (>= 1.8.0)
     autotest (4.4.6)
       ZenTest (>= 4.4.1)
     autotest-fsevent (0.2.9)
@@ -46,9 +53,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-webkit (1.1.1)
-      capybara (>= 2.0.2, < 2.2.0)
-      json
+    cliver (0.3.2)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -71,25 +76,14 @@ GEM
       hpricot
       ruby_parser
     erubis (2.7.0)
-    excon (0.25.3)
     execjs (2.0.2)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
     ffi (1.9.0)
-    fog (1.15.0)
-      builder
-      excon (~> 0.25.0)
-      formatador (~> 0.2.0)
-      mime-types
-      multi_json (~> 1.0)
-      net-scp (~> 1.1)
-      net-ssh (>= 2.1.3)
-      nokogiri (~> 1.5)
-      ruby-hmac
-    formatador (0.2.4)
     gravtastic (3.2.6)
     haml (3.1.8)
     hashie (2.0.5)
+    headless (1.0.1)
     hike (1.2.3)
     hpricot (0.8.6)
     httpauth (0.2.0)
@@ -113,11 +107,10 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.25.1)
     mini_portile (0.5.2)
+    mono_logger (1.1.0)
     multi_json (1.9.0)
     multipart-post (1.2.0)
-    net-scp (1.1.2)
-      net-ssh (>= 2.6.5)
-    net-ssh (2.6.8)
+    mysql2 (0.3.15)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     oauth (0.4.7)
@@ -143,6 +136,11 @@ GEM
       omniauth-oauth (~> 1.0)
     orm_adapter (0.4.0)
     pg (0.17.1)
+    poltergeist (1.5.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      multi_json (~> 1.0)
+      websocket-driver (>= 0.2.0)
     polyglot (0.3.4)
     rack (1.4.5)
     rack-cache (1.2)
@@ -151,6 +149,7 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    rack-timeout (0.0.4)
     rails (3.2.11)
       actionmailer (= 3.2.11)
       actionpack (= 3.2.11)
@@ -169,6 +168,9 @@ GEM
     rake (10.1.1)
     rdoc (3.12.2)
       json (~> 1.4)
+    redis (3.0.7)
+    redis-namespace (1.4.1)
+      redis (~> 3.0.4)
     ref (1.0.5)
     rspec-core (2.14.5)
     rspec-expectations (2.14.2)
@@ -181,7 +183,6 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
-    ruby-hmac (0.4.0)
     ruby_parser (3.4.1)
       sexp_processor (~> 4.1)
     sexp_processor (4.4.1)
@@ -232,6 +233,7 @@ GEM
       json (>= 1.8.0)
     warden (1.2.3)
       rack (>= 1.0)
+    websocket-driver (0.3.2)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -239,12 +241,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  asset_sync
   autotest
   autotest-fsevent
   awesome_print
   capybara
-  capybara-webkit
   coffee-rails (~> 3.2.1)
   coffee-script
   composite_primary_keys
@@ -252,15 +252,20 @@ DEPENDENCIES
   erb2haml
   gravtastic
   haml (~> 3.1)
+  headless
   jquery-rails
   less-rails
   libv8
+  mysql2
   nokogiri
   omniauth
   omniauth-facebook
   omniauth-twitter
   pg
+  poltergeist
+  rack-timeout
   rails (= 3.2.11)
+  resque (~> 2.0.0.pre.1)!
   rspec-rails
   simplecov (~> 0.8.2)
   simplecov-rcov

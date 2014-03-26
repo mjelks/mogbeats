@@ -2,15 +2,15 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
 gem 'pg'
+gem 'mysql2'
 
 gem 'nokogiri'
-#gem 'mechanize'
 
 gem 'composite_primary_keys'
+
+# queueing
+gem "resque", "~> 2.0.0.pre.1", github: "resque/resque"
 
 # user management 
 gem 'devise'
@@ -18,12 +18,15 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 
+gem 'rack-timeout'
 
 gem 'haml', "~> 3.1"
 #gem 'sass'
 gem 'coffee-script'
 gem 'capybara'
-gem 'capybara-webkit'
+#gem 'capybara-webkit', '~> 1.1.1'
+gem 'poltergeist'
+gem 'headless'
 # twitter bootstrap support
 # https://github.com/seyhunak/twitter-bootstrap-rails
 
@@ -44,7 +47,7 @@ group :assets do
   gem 'twitter-bootswatch-rails', '~> 2.3.2'
   gem 'twitter-bootswatch-rails-fontawesome'
 
-  gem 'asset_sync'
+  #gem 'asset_sync'
 
 end
 

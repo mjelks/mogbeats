@@ -1,19 +1,49 @@
 module MogBeats
   module Parser
     require 'rubygems'
+    #require 'headless'
     require 'capybara'
     require 'capybara/dsl'
-    require 'capybara-webkit'
+    #require 'capybara-webkit'
+    require 'capybara/poltergeist'
     include Capybara::DSL
 
-    Capybara.run_server = false
-    Capybara.current_driver = :webkit
+    #require 'rack/utils'
+    #Capybara.app = Rack::ShowExceptions.new(MogBeats::Application)
 
+    Capybara.run_server = false
+    #Capybara.current_driver = :webkit_debug
+    #Capybara.javascript_driver = :webkit_debug
+    #Capybara.javascript_driver = :webkit_ignore_ssl
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, {:phantomjs => '/opt/phantomjs', :js_errors => false, :inspector => true, :timeout => 300})
+end
+#Capybara.register_driver :webkit_ignore_ssl do |app|
+#  Capybara::Webkit::Driver.new(app).tap {|d| d.browser.ignore_ssl_errors }
+#end
+#Capybara.javascript_driver = :webkit_ignore_ssl
+    #Capybara.current_driver = :poltergeist
+    Capybara.default_driver = :poltergeist
+    Capybara.javascript_driver = :poltergeist
+#Capybara.javascript_driver = :webkit_ignore_ssl
 
     def test_parse_capybara
+    #Capybara.register_driver :webkit_ignore_ssl do |app|
+    #  Capybara::Webkit::Driver.new(app).tap {|d| d.browser.ignore_ssl_errors }
+    #end
+    #Capybara.javascript_driver = :webkit_ignore_ssl
+
+	#headless = Headless.new
+	#headless.start
+	puts '1'
       Capybara.app_host = 'https://mog.com/'
-      visit('/m/login')
+	puts '2'
+      visit('/m')
+	#puts page.inspect
+	puts '3'
       all(:xpath, "//input").each { |a| puts a }
+	puts '4'
+	#headless.destroy
     end
 
     def mog_login(username, password)
@@ -21,7 +51,6 @@ module MogBeats
       visit('/m/login')
       fill_in 'login', :with => username
       fill_in 'password', :with => password
-      #
       #puts @google_plus_page.inspect
       #page.find(:xpath, "//input[@type='submit']").click
       page.find(:xpath, "//div[@title='Login']").click
@@ -101,7 +130,7 @@ module MogBeats
       playlists = []
       Capybara.app_host = 'https://mog.com/'
       visit('/m#my_playlists')
-      sleep(5)
+      sleep(10)
       #<li
       # class="clrfx mini playlist ui-draggable" playlist_id="1268560"
       # name="80s New Wave" description=""
@@ -129,7 +158,7 @@ module MogBeats
       playlist_tracks = []
       Capybara.app_host = 'https://mog.com/'
       visit('/m#playlist/'+playlist_id.to_s)
-      sleep(5)
+      sleep(2)
       #<li
       # class="track clrfx ui-draggable playlist_context"
       # track_id="516713"
@@ -155,11 +184,13 @@ module MogBeats
     end
 
     def mog_logout
-      #Capybara.app_host = 'https://mog.com/'
-      #visit('/m#favorites')
-      #sleep(5)
+      Capybara.app_host = 'https://mog.com/'
+      visit('/m')
+      sleep(2)
       #page.execute_script("document.getElementById('menu-holder').getElementsByClassName('menu-pop-down')[0].getElementsByTagName('ul')[0].style.display = 'block'")
       #page.find(:xpath, "//div[@id='dropdown-menus']/div/div[1]/div/ul/li[3]/a",:visible => false).click
+      page.execute_script('localStorage.clear()')
+      page.execute_script('sessionStorage.clear()')
       Capybara.reset_sessions!
     end
 

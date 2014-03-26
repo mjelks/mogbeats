@@ -47,9 +47,8 @@ test:
   password:
 
 production:
-  adapter: postgresql
-  encoding: unicode
+  adapter: mysql2
+  encoding: utf8
   database: mogbeats_production
   pool: 5
-  username: mogbeats
-  password:
+
