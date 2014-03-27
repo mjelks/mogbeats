@@ -10,8 +10,4 @@ class WelcomeController < ApplicationController
     @total_count = @artists_count + @albums_count + @tracks_count + @playlists_count
   end
 
-  def get_mog
-
-  end
-
 end

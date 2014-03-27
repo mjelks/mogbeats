@@ -17,4 +17,6 @@ RACK_ENV=development rails server &
 
 pg_ctl -D /usr/local/var/postgres -l log/db.log start
 
+redis-server >> log/redis.log &
+
 tail -f log/spork.log log/development.log log/memcached.log log/redis.log log/resque.log

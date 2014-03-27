@@ -67,6 +67,9 @@ MogBeats::Application.routes.draw do
   # just remember to delete public/index_orig.html.
   root :to => 'welcome#index'
 
+  # resque/redis
+  mount Resque::Server, :at => '/__q'
+
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.

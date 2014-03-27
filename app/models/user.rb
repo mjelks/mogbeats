@@ -50,10 +50,6 @@ class User < ActiveRecord::Base
 
   def parse_playlist_tracks(playlist_mog_id, tracks)
     playlist = Playlist.find_by_mog_id_and_user_id(playlist_mog_id, self.id)
-    puts 'playlist found?'
-    puts playlist.inspect
-    puts 'track stuff'
-    puts tracks.inspect
     tracks.each_with_index do |element,idx|
       track = Track.create_track(element['mog_album_id'], element['mog_artist_id'], element['mog_track_id'], element['track_name'], element['image_url'], element['mog_album_title'], element['mog_artist_name'])
       PlaylistsTrack.create_sorted_entry(playlist.id, track.id, idx)

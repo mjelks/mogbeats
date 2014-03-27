@@ -10,7 +10,8 @@ gem 'nokogiri'
 gem 'composite_primary_keys'
 
 # queueing
-gem "resque", "~> 2.0.0.pre.1", github: "resque/resque"
+gem 'resque', :require => 'resque/server'
+#gem "resque", "~> 2.0.0.pre.1", github: "resque/resque"
 
 # user management 
 gem 'devise'
@@ -24,11 +25,8 @@ gem 'haml', "~> 3.1"
 #gem 'sass'
 gem 'coffee-script'
 gem 'capybara'
-#gem 'capybara-webkit', '~> 1.1.1'
 gem 'poltergeist'
-gem 'headless'
-# twitter bootstrap support
-# https://github.com/seyhunak/twitter-bootstrap-rails
+
 
 # Gems used only for assets and not required
 # in production environments by default.
