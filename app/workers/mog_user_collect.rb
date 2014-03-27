@@ -46,9 +46,11 @@ class MogUserCollect
     if favorites
       @user.parse_favorites(favorites)
     else
-      # TODO: error logging for user
       # log error for user ('no favorites collected, please try again, and confirm your username and password')
+      @user.update_attributes(:mog_process_status => '<li>No favorites collected, please try again, and confirm your username and password.</li>')
     end
+
+    @user.update_attributes(:mog_process => false)
 
     # 3. enqueue the playlists data
     Resque.enqueue(MogPlaylistsCollect, user_id, username, password)

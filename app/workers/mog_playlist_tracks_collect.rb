@@ -12,7 +12,7 @@ class MogPlaylistTracksCollect
     if tracks
       @user.parse_playlist_tracks(playlist['playlist_id'], tracks)
     else
-      @user.update_attributes(:mog_process_status => 'Unable to process tracks for the playlist ' + playlist['name'])
+      @user.update_attributes(:mog_process_status => '<li>Unable to process tracks for the playlist ' + playlist['name'] + '</li>')
     end
 
     # done with processing, good or bad. now user can try again if needed

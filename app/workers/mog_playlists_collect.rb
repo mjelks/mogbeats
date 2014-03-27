@@ -15,7 +15,7 @@ class MogPlaylistsCollect
         Resque.enqueue(MogPlaylistTracksCollect, user_id, username, password, playlist)
       end
     else
-      @user.update_attributes(:mog_process_status => 'Playlists not generated, please try again')
+      @user.update_attributes(:mog_process_status => '<li>Playlists not generated, please try again<li>')
     end
 
   end

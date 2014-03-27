@@ -137,7 +137,7 @@ module MogBeats
       playlist_tracks = []
       Capybara.app_host = 'https://mog.com/'
       visit('/m#playlist/'+playlist_id.to_s)
-      sleep(2)
+      sleep(4)
 
       #<li
       # class="track clrfx ui-draggable playlist_context"
