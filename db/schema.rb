@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140321051823) do
+ActiveRecord::Schema.define(:version => 20140327053955) do
 
   create_table "albums", :force => true do |t|
     t.integer  "mog_id"
@@ -90,8 +90,8 @@ ActiveRecord::Schema.define(:version => 20140321051823) do
   create_table "users", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "email",                  :default => "",    :null => false
+    t.string   "encrypted_password",     :default => "",    :null => false
     t.string   "mog_email"
     t.string   "beats_email"
     t.string   "reset_password_token"
@@ -102,10 +102,12 @@ ActiveRecord::Schema.define(:version => 20140321051823) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.string   "mog_screen_name"
     t.integer  "mog_user_id"
+    t.boolean  "mog_process",            :default => false
+    t.string   "mog_process_status"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

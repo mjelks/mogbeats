@@ -40,7 +40,8 @@ module MogBeats
 
     def mog_favorites_collect
       collection = []
-      visit('https://mog.com/m#my_favorites')
+      Capybara.app_host = 'https://mog.com/'
+      visit('/m#my_favorites')
       sleep(5)
       if signed_in(page)
         # uncomment these 2 lines to make sure source code is valid and we're logged in

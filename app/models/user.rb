@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :mog_email, :beats_email, :mog_screen_name, :mog_user_id
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :mog_email, :beats_email, :mog_screen_name, :mog_user_id, :mog_process, :mog_process_status
   # attr_accessible :title, :body
   has_many :playlists, :dependent => :destroy
 
