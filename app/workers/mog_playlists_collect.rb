@@ -6,7 +6,6 @@ class MogPlaylistsCollect
     mog_login(username, password)
 
     playlists = mog_playlists_collect
-
     if playlists
       @user = User.find(user_id)
       @user.update_mog_user_data(playlists[0])
@@ -16,7 +15,7 @@ class MogPlaylistsCollect
         Resque.enqueue(MogPlaylistTracksCollect, user_id, username, password, playlist)
       end
     else
-      # TODO: error log for user : 'playlists not generated, please try again'
+      @user.update_attributes(:mog_process_status => 'Playlists not generated, please try again')
     end
 
   end

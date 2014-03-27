@@ -4,7 +4,12 @@
       %h1 Mog Summary Data Counts
   %hr
   .row
-    - if @total_count < 1
+    - if @user.mog_process
+      .span12
+        .well
+          %h3{:style => 'margin-top: -10px'} We are currently processing your account information.
+          Please check back in a little while. This welcome screen will change once we have finished processing your request.
+    - elsif @total_count < 1
       .span12
         .well
           %h3{:style => 'margin-top: -10px'} It appears you have no Favorites or Playlists scanned in yet.

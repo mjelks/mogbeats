@@ -64,7 +64,7 @@ module MogBeats
       html = Nokogiri::HTML(mog_page.evaluate_script("document.getElementById('#{type}_faves').innerHTML"))
       case type
         when 'album'
-          puts 'album time!'
+          #puts 'album time!'
           favorites['type'] = 'album'
           html.xpath("//li[@class='clrfx album ui-draggable']").each_with_index do |elem, idx|
             # get the text name (3rd element of <a> tags)
@@ -75,7 +75,7 @@ module MogBeats
           end
 
         when 'artist'
-          puts 'artist time!'
+          #puts 'artist time!'
           favorites['type'] = 'artist'
           if mog_page.has_xpath?("//div[@id='#{type}_faves']/div/ul/li")
             html.xpath("//li//a").each do |elem|
@@ -85,7 +85,7 @@ module MogBeats
           end
 
         when 'track'
-          puts 'track time!'
+          #puts 'track time!'
           favorites['type'] = 'track'
           html.xpath("//li[@class='track clrfx ui-draggable custom_context']").each_with_index do |elem, idx|
             track = html.xpath("//li[@class='track clrfx ui-draggable custom_context']")[idx]
